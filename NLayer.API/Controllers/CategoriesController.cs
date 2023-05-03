@@ -12,10 +12,10 @@ namespace NLayer.API.Controllers
             _categoryService = categoryService;
         }
 
-        [HttpGet("[action]/{categoryId}")]
-        public async Task<IActionResult> GetSingleCategoryByWithProductsAsync(int categoryId)
+        [HttpGet("[action]/{id}")]
+        public async Task<IActionResult> GetSingleCategoryByWithProductsAsync(int id)
         {
-            return CreateActionResult(await _categoryService.GetSingleCategoryByIdWithProductsAsync(categoryId));
+            return CreateActionResult(await _categoryService.GetSingleCategoryByIdWithProductsAsync(id));
                 
         }
 
