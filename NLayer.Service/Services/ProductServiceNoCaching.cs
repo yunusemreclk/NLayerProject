@@ -7,7 +7,7 @@ using NLayer.Core.UnitOfWorks;
 
 namespace NLayer.Service.Services
 {
-    public class ProductServiceNoCaching : Service<Product>, IProductService
+    public class ProductServiceNoCaching : Service<Product>
     {
         private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
