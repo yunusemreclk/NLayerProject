@@ -1,5 +1,5 @@
-﻿using Autofac;
-using NLayer.Caching;
+﻿
+using Autofac;
 using NLayer.Core.Repositories;
 using NLayer.Core.Services;
 using NLayer.Core.UnitOfWorks;
@@ -11,9 +11,9 @@ using NLayer.Service.Services;
 using System.Reflection;
 using Module = Autofac.Module;
 
-namespace NLayer.API.Modules
+namespace NLayer.Web.Modules
 {
-    public class RepoServiceModule:Module
+    public class RepoServiceModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
@@ -21,15 +21,14 @@ namespace NLayer.API.Modules
             builder.RegisterGeneric(typeof(Service<>)).As(typeof(IService<>)).InstancePerLifetimeScope();
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
 
-           var apiAssembly=Assembly.GetExecutingAssembly();
-           var repoAssembly=Assembly.GetAssembly(typeof(AppDbContext));
-           var serviceAssembly=Assembly.GetAssembly(typeof(MapProfile));
+            var apiAssembly = Assembly.GetExecutingAssembly();
+            var repoAssembly = Assembly.GetAssembly(typeof(AppDbContext));
+            var serviceAssembly = Assembly.GetAssembly(typeof(MapProfile));
 
-            builder.RegisterAssemblyTypes(apiAssembly, repoAssembly, serviceAssembly).Where(x=>x.Name.EndsWith("Repository")).AsImplementedInterfaces().InstancePerLifetimeScope();
+            builder.RegisterAssemblyTypes(apiAssembly, repoAssembly, serviceAssembly).Where(x => x.Name.EndsWith("Repository")).AsImplementedInterfaces().InstancePerLifetimeScope();
 
             builder.RegisterAssemblyTypes(apiAssembly, repoAssembly, serviceAssembly).Where(x => x.Name.EndsWith("Service")).AsImplementedInterfaces().InstancePerLifetimeScope();
 
-            //builder.RegisterType<ProductServiceWithCaching>().As<IProductService>();
         }
     }
 }
